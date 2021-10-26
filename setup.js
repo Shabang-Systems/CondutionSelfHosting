@@ -24,8 +24,16 @@ r.connect( {host:'localhost', port: 28015, user: "admin", password: ''}, functio
     });
     rl.question('WARNING THIS WILL BE IMMUTABLE UPON CREATION inital user username: ', username => {
 	rl.question('initial user password: ', password => {
-	    r.db('rethinkdb').table('users').insert({id: username, password: password}).run(conn, function(err, result) {
+	    r.db('rethinkdb').table('users').insert({id: username, password: password}).run(conn, (err, result) => {
 		if (err) console.log("Something has gone wrong creating that user, please try again.");
+		r.db('users').tableCreate(username).run(connection, function(err, result) {
+		    if (err) console.log("Something went wrong creating a table for user well frick")
+		    r.db('users').table(username).insert([{
+			tags: {},
+			tasks: {},
+			projects: {}
+		    }]).run(connection)
+		})
 	    })
 	})
     })
