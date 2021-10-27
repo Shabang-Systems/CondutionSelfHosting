@@ -27,12 +27,13 @@ r.connect( {host:'localhost', port: 28015, user: "admin", password: ''}, functio
 	    r.db('rethinkdb').table('users').insert({id: username, password: password}).run(conn, (err, result) => {
 		if (err) console.log("Something has gone wrong creating that user, please try again.");
 		r.db('users').tableCreate(username).run(connection, function(err, result) {
-		    if (err) console.log("Something went wrong creating a table for user well frick")
+		    if (err) console.log("A user with this name already exists, please try again.")
 		    r.db('users').table(username).insert([{
 			tags: {},
 			tasks: {},
 			projects: {}
-		    }]).run(connection)
+		    }]).run(connection);
+		    r.db.('users').table(username).grant(username, {read: true, write: true, config: false});
 		})
 	    })
 	})
