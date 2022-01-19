@@ -8,7 +8,7 @@ const rl = readline.createInterface({
 
 var connection = null;
 
-console.log("Welcome to Condution Self Hosting! We're really glad you're excited to run your own self hosted instance of the application database. Make sure to check our our guide at [insert link] for instructions on how to get started, troubleshooting tips, and limitations.")
+console.log("Welcome to Condution Self Hosting! We're really glad you're excited to run your own self hosted instance of the application database. Make sure to check our our guide at [insert link] for instructions on how to get started, troubleshooting tips, and limitations. If you have any questions make sure to join our discord!")
 
 console.log("Step 1: Initializing connection with localhost")
 r.connect( {host:'localhost', port: 28015, user: "admin", password: ''}, function(err, conn) {
@@ -33,7 +33,9 @@ r.connect( {host:'localhost', port: 28015, user: "admin", password: ''}, functio
 			tasks: {},
 			projects: {}
 		    }]).run(connection);
-		    r.db.('users').table(username).grant(username, {read: true, write: true, config: false});
+		    r.db('users').table(username).grant(username, {read: true, write: true, config: true});
+
+		process.exit()
 		})
 	    })
 	})
