@@ -16,7 +16,7 @@ rl.question('Do you want to (a)dd a user (d)elete a user, or (c)reate a workspac
 	rl.question('Admin password (if one specified otherwise leave blank)', admin_password => {
 	    r.connect( {host:'localhost', port: 28015, user: "admin", password: admin_password}, function(err, conn) {
 		rl.question('New user username: ', new_username => {
-		    r.question('New user password: ', new_password => {
+		    rl.question('New user password: ', new_password => {
 			r.db('rethinkdb').table('users').insert({id: new_username, password: new_password}).run(conn, (err, result) => {
 			    if (err) console.log("something has gone wrong with creating that user please try again")
 			    r.db('users').tableCreate(new_username).run(conn, (err, result) => {
