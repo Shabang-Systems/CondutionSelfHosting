@@ -34,7 +34,9 @@ r.connect( {host:'localhost', port: 28015, user: "admin", password: ''}, functio
 			//projects: {}
 		    //}]).run(connection);
 		    r.db('users').table(username).grant(username, {read: true, write: true, config: true}).run(connection);
-            process.exit();
+			// CONFIG IS ACTUALLY A PROBLEM
+            	r.db('workspaces').table(username).grant(username, {read: true, write: true, config: false}).run(connection);
+			process.exit();
 		})
 	    })
 	})
