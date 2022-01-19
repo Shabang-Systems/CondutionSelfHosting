@@ -33,8 +33,8 @@ r.connect( {host:'localhost', port: 28015, user: "admin", password: ''}, functio
 			//tasks: {},
 			//projects: {}
 		    //}]).run(connection);
-		    r.db('users').table(username).grant(username, {read: true, write: true, config: true});
-                    process.exit();
+		    r.db('users').table(username).grant(username, {read: true, write: true, config: true}).run(connection);
+            process.exit();
 		})
 	    })
 	})
